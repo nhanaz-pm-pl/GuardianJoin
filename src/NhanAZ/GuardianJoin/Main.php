@@ -12,6 +12,8 @@ use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase implements Listener {
 
+	private int $eventData = 0;
+
 	protected function onEnable(): void {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
@@ -20,7 +22,7 @@ class Main extends PluginBase implements Listener {
 		$player = $event->getPlayer();
 		$packet = new LevelEventPacket();
 		$packet->eventId = LevelEvent::GUARDIAN_CURSE;
-		$packet->eventData = $player->getId();
+		$packet->eventData = $this->eventData;
 		$packet->position = $player->getPosition();
 		$player->getNetworkSession()->sendDataPacket($packet);
 	}
